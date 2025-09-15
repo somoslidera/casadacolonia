@@ -21,22 +21,24 @@
         }
         /* Simple transition for slide changes */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .slide-content {
             animation: fadeIn 0.5s ease-in-out;
         }
+        /* Hide navigation for presentation screenshots */
+        #navigation-controls {
+            display: none;
+        }
     </style>
 </head>
-<body class="bg-[#F9F0DB] flex flex-col items-center justify-center min-h-screen p-4">
+<body class="bg-[#F9F0DB] flex flex-col items-center justify-center h-screen">
 
-    <div id="presentation-container" class="w-full max-w-4xl bg-white rounded-2xl shadow-2xl overflow-hidden aspect-video flex flex-col">
-        <!-- Slides will be injected here by JS -->
-    </div>
+    <div id="presentation-container" class="w-full h-full bg-white shadow-2xl overflow-hidden flex flex-col">
+        </div>
 
-    <!-- Navigation -->
-    <div class="mt-6 flex items-center justify-between w-full max-w-4xl">
+    <div id="navigation-controls" class="mt-6 flex items-center justify-between w-full max-w-4xl">
         <button id="prevBtn" class="bg-white/80 backdrop-blur-sm text-[#3F1708] font-semibold py-2 px-5 rounded-lg shadow-md hover:bg-white transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2">
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
             Anterior
@@ -177,22 +179,22 @@
                 if (slide.type === 'title') {
                     slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
-                            <div class="slide-content flex flex-col justify-center items-center h-full text-center p-12 bg-[#3F1708] text-[#F9F0DB]">
-                                <h1 class="text-4xl md:text-5xl font-bold mb-4">${slide.title}</h1>
-                                <p class="text-xl md:text-2xl opacity-80">${slide.subtitle}</p>
+                            <div class="slide-content flex flex-col justify-center items-center h-full text-center p-20 bg-[#3F1708] text-[#F9F0DB]">
+                                <h1 class="text-6xl md:text-7xl font-bold mb-6">${slide.title}</h1>
+                                <p class="text-2xl md:text-3xl opacity-80">${slide.subtitle}</p>
                             </div>
                         </div>
                     `;
                 } else if (slide.type === 'points') {
                     slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
-                            <div class="slide-content p-8 md:p-12 h-full">
-                                <h2 class="text-2xl md:text-3xl font-bold text-[#3F1708] mb-8">${slide.title}</h2>
-                                <ul class="space-y-6">
+                            <div class="slide-content p-16 md:p-24 h-full flex flex-col justify-center">
+                                <h2 class="text-4xl md:text-5xl font-bold text-[#3F1708] mb-16 text-center">${slide.title}</h2>
+                                <ul class="space-y-10">
                                     ${slide.points.map(p => `
-                                        <li class="flex items-start gap-4">
-                                            <div class="bg-[#E09B38]/20 text-[#E09B38] p-3 rounded-full"><i data-lucide="${p.icon}" class="w-6 h-6"></i></div>
-                                            <p class="text-[#3F1708]/90 text-lg flex-1">${p.text}</p>
+                                        <li class="flex items-start gap-6">
+                                            <div class="bg-[#E09B38]/20 text-[#E09B38] p-4 rounded-full"><i data-lucide="${p.icon}" class="w-10 h-10"></i></div>
+                                            <p class="text-[#3F1708]/90 text-2xl flex-1">${p.text}</p>
                                         </li>
                                     `).join('')}
                                 </ul>
@@ -202,18 +204,18 @@
                 } else if (slide.type === 'analysis') {
                     slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
-                           <div class="slide-content p-8 md:p-12 h-full">
-                                <h2 class="text-2xl md:text-3xl font-bold text-[#3F1708] mb-8 text-center">${slide.title}</h2>
-                                <div class="grid md:grid-cols-2 gap-8 mt-12">
-                                    <div class="bg-[#3F1708]/5 p-6 rounded-lg">
-                                        <h3 class="font-bold text-xl text-[#3F1708] mb-4">${slide.leftTitle}</h3>
-                                        <ul class="list-disc list-inside space-y-2 text-[#3F1708]/90">
+                           <div class="slide-content p-16 md:p-24 h-full flex flex-col justify-center">
+                                <h2 class="text-4xl md:text-5xl font-bold text-[#3F1708] mb-12 text-center">${slide.title}</h2>
+                                <div class="grid md:grid-cols-2 gap-12 mt-12">
+                                    <div class="bg-[#3F1708]/5 p-8 rounded-lg">
+                                        <h3 class="font-bold text-3xl text-[#3F1708] mb-6">${slide.leftTitle}</h3>
+                                        <ul class="list-disc list-inside space-y-4 text-[#3F1708]/90 text-xl">
                                             ${slide.leftPoints.map(p => `<li>${p}</li>`).join('')}
                                         </ul>
                                     </div>
-                                    <div class="bg-[#3F1708]/5 p-6 rounded-lg">
-                                        <h3 class="font-bold text-xl text-[#3F1708] mb-4">${slide.rightTitle}</h3>
-                                        <ul class="list-disc list-inside space-y-2 text-[#3F1708]/90">
+                                    <div class="bg-[#3F1708]/5 p-8 rounded-lg">
+                                        <h3 class="font-bold text-3xl text-[#3F1708] mb-6">${slide.rightTitle}</h3>
+                                        <ul class="list-disc list-inside space-y-4 text-[#3F1708]/90 text-xl">
                                             ${slide.rightPoints.map(p => `<li>${p}</li>`).join('')}
                                         </ul>
                                     </div>
@@ -224,14 +226,14 @@
                 } else if (slide.type === 'general') {
                      slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
-                            <div class="slide-content p-8 md:p-12 h-full">
-                                <h2 class="text-2xl md:text-3xl font-bold text-[#3F1708] mb-12 text-center">${slide.title}</h2>
-                                <div class="grid md:grid-cols-3 gap-6">
+                            <div class="slide-content p-16 md:p-24 h-full flex flex-col justify-center">
+                                <h2 class="text-4xl md:text-5xl font-bold text-[#3F1708] mb-16 text-center">${slide.title}</h2>
+                                <div class="grid md:grid-cols-3 gap-10">
                                     ${slide.items.map(item => `
                                         <div class="text-center p-4">
-                                            <div class="flex justify-center mb-4"><div class="bg-[#E09B38]/20 text-[#E09B38] p-4 rounded-full"><i data-lucide="${item.icon}" class="w-8 h-8"></i></div></div>
-                                            <h3 class="font-bold text-lg text-[#3F1708] mb-2">${item.title}</h3>
-                                            <p class="text-[#3F1708]/80 text-sm">${item.description}</p>
+                                            <div class="flex justify-center mb-6"><div class="bg-[#E09B38]/20 text-[#E09B38] p-5 rounded-full"><i data-lucide="${item.icon}" class="w-12 h-12"></i></div></div>
+                                            <h3 class="font-bold text-2xl text-[#3F1708] mb-3">${item.title}</h3>
+                                            <p class="text-[#3F1708]/80 text-lg">${item.description}</p>
                                         </div>
                                     `).join('')}
                                 </div>
@@ -242,9 +244,9 @@
                      slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
                            <div class="slide-content grid md:grid-cols-2 items-center h-full">
-                                <div class="p-8 md:p-12">
-                                    <h2 class="text-2xl md:text-3xl font-bold text-[#3F1708] mb-6">${slide.title}</h2>
-                                    <p class="text-[#3F1708]/90 text-lg">${slide.text}</p>
+                                <div class="p-16 md:p-24">
+                                    <h2 class="text-4xl md:text-5xl font-bold text-[#3F1708] mb-8">${slide.title}</h2>
+                                    <p class="text-[#3F1708]/90 text-2xl leading-relaxed">${slide.text}</p>
                                 </div>
                                 <div class="h-full w-full hidden md:block">
                                      <img src="${slide.image}" alt="Dashboard Mockup" class="w-full h-full object-cover">
@@ -255,9 +257,9 @@
                 } else if (slide.type === 'placeholder') {
                     slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
-                            <div class="slide-content p-8 md:p-12 h-full flex flex-col bg-[#3F1708]/5">
-                                <h2 class="text-xl md:text-2xl font-bold text-[#3F1708] text-center mb-6">${slide.title}</h2>
-                                <div class="flex-grow flex items-center justify-center p-4 bg-slate-200/50 rounded-lg">
+                            <div class="slide-content p-12 h-full flex flex-col bg-[#3F1708]/5">
+                                <h2 class="text-3xl md:text-4xl font-bold text-[#3F1708] text-center mb-8">${slide.title}</h2>
+                                <div class="flex-grow flex items-center justify-center p-8 bg-slate-200/50 rounded-lg">
                                     <img src="${slide.image}" alt="${slide.title}" class="max-w-full max-h-full object-contain rounded-md shadow-lg">
                                 </div>
                             </div>
@@ -266,21 +268,21 @@
                 } else if (slide.type === 'implementation') {
                     slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
-                            <div class="slide-content p-8 md:p-12 h-full">
-                                <h2 class="text-2xl md:text-3xl font-bold text-[#3F1708] mb-8 text-center">${slide.title}</h2>
-                                <div class="grid md:grid-cols-2 gap-8 mt-10 items-center">
-                                    <div class="text-center md:text-left p-6">
-                                        <p class="text-lg text-[#3F1708]/80">Investimento único</p>
-                                        <p class="text-5xl font-bold text-[#3F1708] my-2">R$ ${slide.price}</p>
-                                        <p class="text-xl text-[#3F1708]/90">${slide.installments}</p>
-                                        <p class="mt-4 text-md font-semibold text-[#E09B38]">${slide.duration}</p>
+                            <div class="slide-content p-16 md:p-24 h-full flex flex-col justify-center">
+                                <h2 class="text-4xl md:text-5xl font-bold text-[#3F1708] mb-12 text-center">${slide.title}</h2>
+                                <div class="grid md:grid-cols-2 gap-12 mt-10 items-center">
+                                    <div class="text-center p-6">
+                                        <p class="text-2xl text-[#3F1708]/80">Investimento único</p>
+                                        <p class="text-7xl font-bold text-[#3F1708] my-3">R$ ${slide.price}</p>
+                                        <p class="text-3xl text-[#3F1708]/90">${slide.installments}</p>
+                                        <p class="mt-6 text-xl font-semibold text-[#E09B38]">${slide.duration}</p>
                                     </div>
-                                    <div class="bg-[#3F1708]/5 p-6 rounded-lg border-l-4 border-[#E09B38]">
-                                        <ul class="space-y-3 text-[#3F1708]">
+                                    <div class="bg-[#3F1708]/5 p-8 rounded-lg border-l-8 border-[#E09B38]">
+                                        <ul class="space-y-4 text-[#3F1708]">
                                             ${slide.features.map(f => `
-                                                <li class="flex items-start gap-3">
-                                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-[#E09B38] mt-1 shrink-0"></i>
-                                                    <span>${f}</span>
+                                                <li class="flex items-start gap-4">
+                                                    <i data-lucide="check-circle-2" class="w-7 h-7 text-[#E09B38] mt-1 shrink-0"></i>
+                                                    <span class="text-xl">${f}</span>
                                                 </li>`).join('')}
                                         </ul>
                                     </div>
@@ -291,22 +293,22 @@
                 } else if (slide.type === 'pricing') {
                      slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
-                            <div class="slide-content p-8 md:p-12 h-full bg-[#3F1708]/5">
-                                <h2 class="text-2xl md:text-3xl font-bold text-[#3F1708] text-center">${slide.title}</h2>
-                                <p class="text-center text-[#3F1708]/80 mt-2 mb-10">${slide.subtitle}</p>
-                                <div class="flex flex-col md:flex-row justify-center items-stretch gap-8">
+                            <div class="slide-content p-16 md:p-24 h-full bg-[#3F1708]/5 flex flex-col justify-center">
+                                <h2 class="text-4xl md:text-5xl font-bold text-[#3F1708] text-center">${slide.title}</h2>
+                                <p class="text-center text-xl text-[#3F1708]/80 mt-4 mb-16">${slide.subtitle}</p>
+                                <div class="flex flex-col md:flex-row justify-center items-stretch gap-10">
                                     ${slide.options.map(opt => `
-                                        <div class="flex-1 border ${opt.recommended ? 'border-[#E09B38]' : 'border-slate-200'} bg-white p-6 rounded-xl shadow-lg relative">
-                                            ${opt.recommended ? '<div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-[#E09B38] text-white text-xs font-bold px-4 py-1 rounded-full">RECOMENDADO</div>' : ''}
-                                            <h3 class="text-2xl font-bold text-[#3F1708]">${opt.name}</h3>
-                                            <p class="text-4xl font-bold text-[#3F1708] my-4">R$ ${opt.price}<span class="text-base font-normal text-[#3F1708]/80 ml-1">${opt.per}</span></p>
-                                            <ul class="space-y-3 text-[#3F1708]/90">
-                                                ${opt.features.map(f => `<li class="flex items-start gap-2"><i data-lucide="check" class="w-5 h-5 text-green-500 mt-1 shrink-0"></i><span>${f}</span></li>`).join('')}
+                                        <div class="flex-1 border-2 ${opt.recommended ? 'border-[#E09B38]' : 'border-slate-200'} bg-white p-8 rounded-2xl shadow-lg relative flex flex-col">
+                                            ${opt.recommended ? '<div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 bg-[#E09B38] text-white text-sm font-bold px-5 py-2 rounded-full">RECOMENDADO</div>' : ''}
+                                            <h3 class="text-3xl font-bold text-[#3F1708] mt-4">${opt.name}</h3>
+                                            <p class="text-6xl font-bold text-[#3F1708] my-6">R$ ${opt.price}<span class="text-xl font-normal text-[#3F1708]/80 ml-2">${opt.per}</span></p>
+                                            <ul class="space-y-4 text-[#3F1708]/90 text-lg">
+                                                ${opt.features.map(f => `<li class="flex items-start gap-3"><i data-lucide="check" class="w-6 h-6 text-green-500 mt-1 shrink-0"></i><span>${f}</span></li>`).join('')}
                                             </ul>
                                         </div>
                                     `).join('')}
                                 </div>
-                                <p class="text-center text-sm text-[#3F1708]/70 mt-8">${slide.footer}</p>
+                                <p class="text-center text-base text-[#3F1708]/70 mt-12">${slide.footer}</p>
                             </div>
                         </div>
                     `;
@@ -314,7 +316,7 @@
                     slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
                             <div class="slide-content flex flex-col justify-center items-center h-full text-center p-12 bg-[#3F1708]">
-                                <img src="${slide.image}" alt="Logo Lidera" class="h-24">
+                                <img src="${slide.image}" alt="Logo Lidera" class="h-32">
                             </div>
                         </div>
                     `;
@@ -327,34 +329,43 @@
         }
 
         function updateControls() {
-            prevBtn.disabled = currentSlide === 0;
-            nextBtn.disabled = currentSlide === slidesData.length - 1;
-            currentSlideEl.textContent = currentSlide + 1;
-            totalSlidesEl.textContent = slidesData.length;
+            if (prevBtn && nextBtn && currentSlideEl && totalSlidesEl) {
+                prevBtn.disabled = currentSlide === 0;
+                nextBtn.disabled = currentSlide === slidesData.length - 1;
+                currentSlideEl.textContent = currentSlide + 1;
+                totalSlidesEl.textContent = slidesData.length;
+            }
         }
         
         function showSlide(index) {
             currentSlide = index;
             renderSlides();
         }
+        
+        // Ensure buttons exist before adding listeners
+        if (prevBtn && nextBtn) {
+            prevBtn.addEventListener('click', () => {
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
+            });
 
-        prevBtn.addEventListener('click', () => {
-            if (currentSlide > 0) {
-                showSlide(currentSlide - 1);
-            }
-        });
-
-        nextBtn.addEventListener('click', () => {
-            if (currentSlide < slidesData.length - 1) {
-                showSlide(currentSlide + 1);
-            }
-        });
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide < slidesData.length - 1) {
+                    showSlide(currentSlide + 1);
+                }
+            });
+        }
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight') {
-                nextBtn.click();
+                if (currentSlide < slidesData.length - 1) {
+                    showSlide(currentSlide + 1);
+                }
             } else if (e.key === 'ArrowLeft') {
-                prevBtn.click();
+                if (currentSlide > 0) {
+                    showSlide(currentSlide - 1);
+                }
             }
         });
 
@@ -364,4 +375,3 @@
     </script>
 </body>
 </html>
-
