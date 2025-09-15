@@ -70,7 +70,7 @@
             {
                 type: 'placeholder',
                 title: 'Na Prática: Reconhecimento via App',
-                image: 'https://placehold.co/1280x720/E0E7FF/4F46E5?text=Print+do+AppSheet'
+                image: 'imagens/cdc-app-1.png'
             },
             {
                 type: 'analysis',
@@ -91,7 +91,7 @@
             {
                 type: 'placeholder',
                 title: 'Na Prática: Dashboard de Setores',
-                image: 'https://placehold.co/1280x720/DBEAFE/1D4ED8?text=Print+do+Looker+Studio'
+                image: 'cdc-looker-1.png'
             },
             {
                 type: 'general',
@@ -105,18 +105,18 @@
             {
                 type: 'placeholder',
                 title: 'Na Prática: Mapa de Calor e Perfil',
-                image: 'https://placehold.co/1280x720/D1FAE5/047857?text=Print+do+Looker+Studio'
+                image: 'cdc-looker-2.png'
             },
             {
                 type: 'objections',
                 title: 'A Ferramenta Certa para uma Gestão Profissional',
-                image: 'https://placehold.co/800x400/E09B38/FFFFFF?text=Dashboard+Looker+Studio',
+                image: 'cdc-looker-3.png',
                 text: 'Com AppSheet, coletamos os dados na ponta, direto na operação. Com o Looker Studio, transformamos esses dados em painéis visuais e insights poderosos. É a combinação perfeita para embasar decisões, desde a conversa com um colaborador até a estratégia de crescimento do restaurante.'
             },
             {
                 type: 'placeholder',
                 title: 'Na Prática: Visão Geral do Dashboard',
-                image: 'https://placehold.co/1280x720/FEF3C7/92400E?text=Print+Geral+Looker+Studio'
+                image: 'cdc-looker-4.png'
             },
             {
                 type: 'implementation',
@@ -131,11 +131,12 @@
                     'Treinamento de Uso do Aplicativo',
                     'Cadastro de colaboradores, setores, cargos e líderes',
                     'Cadastro das métricas de acordo com a cultura organizacional',
+                    '<strong>Incluso:</strong> 2 meses do plano de manutenção escolhido (Essencial ou Estratégico).'
                 ]
             },
             {
                 type: 'pricing',
-                title: 'Manutenção e Evolução Contínua',
+                title: 'Manutenção e Análise (A partir do 3º mês)',
                 subtitle: 'Escolha o plano que melhor se adapta à sua necessidade mensal.',
                 options: [
                     {
@@ -149,15 +150,15 @@
                         name: 'Plano Estratégico',
                         price: '12,90',
                         per: 'por funcionário/mês',
-                        features: ['<strong>Tudo do Essencial +</strong>', 'Dashboards no Looker Studio', 'Análise de setores e lideranças', 'Relatórios mensais de insights'],
+                        features: ['<strong>Tudo do Essencial +</strong>', 'Dashboards no Looker Studio', 'Análise de setores e lideranças', 'Relatórios mensais de insights', 'Acompanhamento estratégico mensal'],
                         recommended: true
                     }
                 ],
-                footer: 'Valores baseados em um número mínimo de funcionários. Vamos conversar!'
+                footer: '*Para ambos os planos, é necessária 1 conta Google Workspace, que fica sob gestão e propriedade do cliente, garantindo total controle e segurança dos seus dados. Valores baseados em um número mínimo de funcionários.'
             },
              {
                 type: 'logo',
-                title: 'Obrigado!',
+                title: '',
                 image: 'logo-lidera.png'
             }
         ];
@@ -312,9 +313,8 @@
                 } else if (slide.type === 'logo') {
                     slideHTML = `
                         <div class="slide ${index === currentSlide ? 'active' : ''}">
-                            <div class="slide-content flex flex-col justify-center items-center h-full text-center p-12 bg-white">
-                                <img src="${slide.image}" alt="Logo Lidera" class="h-24 mb-8">
-                                <h2 class="text-4xl font-bold text-[#3F1708]">${slide.title}</h2>
+                            <div class="slide-content flex flex-col justify-center items-center h-full text-center p-12 bg-[#3F1708]">
+                                <img src="${slide.image}" alt="Logo Lidera" class="h-24">
                             </div>
                         </div>
                     `;
